@@ -1,0 +1,22 @@
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+import pandas as pd
+import numpy as np
+
+app = Flask(__name__)
+CORS(app)
+
+@app.route("/ping")
+def ping():
+    return jsonify({"message": "API online!"})
+
+@app.route("/analisar", methods=["POST"])
+def analisar():
+    dados = request.json
+    return jsonify({
+        "par": dados.get("par", "EUR/USD"),
+        "tendencia": "alta",
+        "sinal": "compra",
+        "suporte": 1.105,
+        "resistencia": 1.115
+    })
